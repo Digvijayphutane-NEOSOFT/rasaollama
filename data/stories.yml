@@ -1,0 +1,38 @@
+
+
+version: "3.1"
+
+stories:
+- story: user confirms transfer
+  steps:
+  - intent: bank_transfer
+  - action: action_confirm_transfer
+  - intent: confirm_yes
+  - action: action_handle_bank_transfer
+
+- story: user cancels transfer
+  steps:
+  - intent: bank_transfer
+  - action: action_confirm_transfer
+  - intent: confirm_no
+  - action: utter_transfer_cancelled
+
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: general_info
+  - action: action_respond_general_info
+  - intent: general_info
+  - action: action_respond_general_info
+  - intent: bank_transfer
+    entities:
+    - amount: '100'
+    - recipient: Alice
+  - slot_was_set:
+    - amount: '100'
+  - slot_was_set:
+    - recipient: Alice
+  - action: action_confirm_transfer
+  - intent: confirm_yes
+  - action: action_handle_bank_transfer
